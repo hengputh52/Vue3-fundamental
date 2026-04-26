@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie</title>
+  </head>
+
+  <body>
+    <h1>My Movie</h1>
+    <div id="movie">
+      <p>movie title</p>
+      <ul>
+        <li>Tom Cruise</li>
+      </ul>
+
+      <ul v-for="movie in movies">
+        <li v-if="(movie.isFavorite)">
+          {{ movie.title.toString() }}
+          <ul>
+            <li>
+              <p v-if="movie.cast.length > 0">{{movie.cast.toString()}}</p>
+              <p v-else>{{message}}</p>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+      const { createApp } = Vue;
+
+      const app = createApp({
+        data() {
+          return {
+            message: "Not Found",
+            movies: [
+              {
+                title: "blade runner 2049",
+                cast: ["Ryan Gosling", "Charlie Puth"],
+                isFavorite: true,
+              },
+              {
+                title: "lala land",
+                cast: ["Ryan Gosling", "Emma Stone"],
+                isFavorite: false,
+              },
+              { title: "Notebook", cast: [], isFavorite: true },
+              { title: "Ben 10", cast: ["Charlie Puth"], isFavorite: false },
+              { title: "The Boys", cast: ["heng", "meng"], isFavorite: true },
+            ],
+          };
+        },
+      });
+
+      app.mount("#movie");
+    </script>
+  </body>
+</html>

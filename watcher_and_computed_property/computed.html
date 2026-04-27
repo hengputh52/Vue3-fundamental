@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Computed Property</h1>
+    <div id="app">
+      <ul v-for="product in products" >
+        <li>product name:{{product.name}} </li>
+        <li>quantity: {{product.quantity}}</li>
+        <li>price: ${{product.price}}</li>
+      </ul>
+    <p>{{discount}}</p>
+    <p>total price: ${{totalPrice}}</p>
+
+
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            products: [
+              {
+                name: "toy",
+                quantity: 2,
+                price: 50,
+              },
+              {
+                name: "shirt",
+                quantity: 5,
+                price: 20,
+              },
+              {
+                name: "sock",
+                quantity: 2,
+                price: 10,
+              },
+              {
+                name: "phone",
+                quantity: 2,
+                price: 60,
+              },
+              
+            ],
+            total: 0,
+            discount: "Free Shipping"
+          };
+        },
+        computed: {
+            totalPrice(){
+                let total = 0
+                for(product of this.products){
+                    total += product.price
+                    this.total = total
+                }
+                return total
+            },
+            isFreeShipping(){
+                if(this.totalPrice > 500){
+                    return this.discount
+                }
+                return ''
+            }
+        },
+        watch: {
+            total(newValue){
+                if(newValue > 500){
+                    this.discount += ' Free delivery'
+                }
+                
+            }
+        }
+      }).mount("#app");
+    </script>
+  </body>
+</html>

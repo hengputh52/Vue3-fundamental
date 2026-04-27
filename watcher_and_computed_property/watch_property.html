@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie</title>
+  </head>
+
+  <body>
+    <div id="movie">
+      <h1>{{displayText}}</h1>
+      <p>{{count}}</p>
+      <button v-on:click="incrementCounter">Increment Count</button>
+      <div>
+        <p>{{incrementAmount}}</p>
+        <label>Increment by:</label>
+        <input type="number" v-model="incrementAmount" />
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+      const { createApp } = Vue;
+
+      let count = 0;
+      const app = createApp({
+        data() {
+          return {
+            count: 0,
+            incrementAmount: 10,
+            title: "Number",
+          };
+        },
+        computed: {
+            displayText()
+            {
+                if(this.count > 20){
+                    return 'Number is large'
+                }
+                else{
+                    return 'Number is small'
+                }
+            }
+        },
+        methods: {
+          incrementCounter() {
+            this.count += this.incrementAmount;
+          },
+        },
+        // watch the count change
+        watch: {
+          count(newValue) {
+            if (newValue > 20) {
+                this.title += 'is Very Long'
+            }
+          },
+        },
+      });
+
+      app.mount("#movie");
+    </script>
+  </body>
+</html>

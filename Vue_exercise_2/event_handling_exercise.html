@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Handling Exercise</title>
+  </head>
+
+  <body>
+    <h1>Event Handling Exercise</h1>
+    <div id="movie">
+      <ul>
+        <li v-for="character in characters">
+          {{character.name}}
+          <button v-on:click="addToFavorite(character.name)">Add to Favorite</button>
+        </li>
+      </ul>
+      <p>Add New Character</p>
+      <label for="character-name">enter your character name</label>
+
+      <input type="text" v-model="newCharacter.name" @keyup.enter="addNewCharacter">
+      <ul>
+        <p>Favorite Character</p>
+        <li v-for="favorite in favoriteCharacter">
+            {{favorite}}
+        </li>
+      </ul>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+      const { createApp } = Vue;
+
+      let count = 0
+      const app = createApp({
+        data() {
+          return {
+            count: 0,
+            incrementAmount: 10,
+            message: "Not Found",
+            characters: [
+              {
+                name: "Sok",
+              },
+              {
+                name: "Bopha",
+              },
+              {
+                name: "Chan",
+              },
+              {
+                name: "Neary",
+              },
+              {
+                name: "Zed",
+              },
+            ],
+            favoriteCharacter: [],
+            newCharacter: {
+                name: ''
+            }
+          };
+        },
+        methods: {
+            addNewCharacter()
+            {
+                this.characters.push(this.newCharacter)
+                this.newCharacter = {name: ''}
+            },
+            addToFavorite(name) {
+                this.favoriteCharacter.push(name)
+                console.log(name)
+          },
+        },
+      });
+
+      app.mount("#movie");
+    </script>
+  </body>
+</html>
